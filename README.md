@@ -1,13 +1,13 @@
-### floor-stream
+# floor-stream
 Stream takes integers and floors em. Stupid simple and not really complete yet.
 
-#### install
-```
+## install
+```bash
 npm install floor-stream
 ```
 
-#### example usage
-```
+## example usage
+```javascript
 var FloorStream = require('./index');
 var floor = new FloorStream();
 
@@ -18,5 +18,5 @@ setInterval(function () {
 floor.pipe(process.stdout);
 ```
 
-### license
+## license
 MIT
