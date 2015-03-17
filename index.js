@@ -1,15 +1,16 @@
 'use strict';
 
 var through = require('through2');
+var split = require('split');
 
 module.exports = function () {
-    return through(floored());
+    return through(split(floored()));
 };
 
 function floored () {
 
     function transformer(chunk, enc, callback) {
-        this.push(Math.floor(chunk).toString() + '\n');
+        this.push(Math.floor(chunk).toString());
         callback();
     }
 
