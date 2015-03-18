@@ -1,18 +1,22 @@
 'use strict';
 
 var through = require('through2');
-var split = require('split');
 
-module.exports = function () {
-    return through(split(floored()));
-};
+function FloorStream (opts) {
+    if (!opts) opts = {};
+    var separator = opts.separator || '';
 
-function floored () {
+    separator = opts.separator;
 
-    function transformer(chunk, enc, callback) {
+    function transformer (chunk, enc, callback) {
+        /*jshint validthis:true */
         this.push(Math.floor(chunk).toString());
-        callback();
+        callback(null, separator);
     }
 
-    return transformer;
+    var floorStream = through(transformer);
+
+    return floorStream;
 }
+
+module.exports = FloorStream;

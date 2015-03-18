@@ -1,6 +1,7 @@
 # floor-stream
-Stream takes integers and floors em. Stupid simple and not really complete yet.
+Returns a transform stream that  takes newline-seperated floats and floors em.
 
+For when, you know, you just want some inaccuracy.
 ## install
 ```bash
 npm install floor-stream
@@ -8,15 +9,21 @@ npm install floor-stream
 
 ## example usage
 ```javascript
-var FloorStream = require('./index');
-var floor = new FloorStream();
+var FloorStream = require('floor-stream');
+var floor = new FloorStream({separator: '\n'});
 
-setInterval(function () {
-    floor.write((Math.random() * 10).toString());
-},1000);
+// file with a bunch of random floats
+var file = fs.createReadStream('./file.txt');
+var split = require('split');
 
-floor.pipe(process.stdout);
+// pipe the file to the split-stream so that it
+// creates a chunk for each float to be processed.
+// then pipe that somewhere super cool.
+file.pipe(split()).pipe(floor).pipe(process.stdout);
 ```
+
+## var floor = new FloorStream(opts)
+`opts.separator` - `string` choose what you want the output chunks to be separated by.
 
 ## license
 MIT
